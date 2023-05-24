@@ -11,7 +11,19 @@ export function getAppointmentsForDay(state, day) {
         }
       }
     }
-    return filteredDays[0].appointments, resultArray
+    return (filteredDays[0].appointments, resultArray)
   }
   
+}
+
+export function getInterview(state, interview) {
+  if (!interview) {
+    return null;
+  } else {
+    let newObj = {}
+    const interviewerId = interview.interviewer
+    newObj = {...interview, interviewer: state.interviewers[interviewerId]}
+  
+    return newObj
+  }
 }

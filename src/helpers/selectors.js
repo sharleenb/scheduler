@@ -11,7 +11,7 @@ export function getAppointmentsForDay(state, day) {
         }
       }
     }
-    return (filteredDays[0].appointments, resultArray)
+    return (resultArray)
   }
   
 }
@@ -25,5 +25,27 @@ export function getInterview(state, interview) {
     newObj = {...interview, interviewer: state.interviewers[interviewerId]}
   
     return newObj
+  }
+}
+
+export function getInterviewersForDay(state, day) {
+  let resultArray = [];
+  if (state.days.length === 0) {
+    return resultArray;
+  }
+  const filteredDays = state.days.filter(days => days.name === day);
+  
+  if (!filteredDays[0]) {
+    return resultArray;
+  } else {
+    for (const index of filteredDays[0].interviewers) {
+      for (const interviewer in state.interviewers) {
+        if (interviewer == index) {
+          resultArray.push(state.interviewers[interviewer])
+        }
+      }
+      
+    }
+    return resultArray
   }
 }

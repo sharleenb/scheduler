@@ -4,18 +4,49 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList"
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
+
 
 
 export default function Application(props) {
   const [state, setState] = useState({
-    day: "Monday", 
-    days: [], 
-    appointments: {},
-    interviewers: {}
-  })
+    day: "Monday",
+    days: [],
+    appointments: {
+      1: {
+        id: 1,
+        time: "12pm",
+        interview: null,
+      },
+    },
+    interviewers: {},
+  });
+
+
+  function bookInterview(id, interview) {
+    
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    setState({
+      ...state, 
+      appointments
+    })
+   
+
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, {interview})
+   
+  }
 
   const dailyAppointments = getAppointmentsForDay(state, state.day)
+  const dailyInterviews = getInterviewersForDay(state, state.day);
   const setDay = day => setState({...state, day})
 
 
@@ -31,7 +62,7 @@ export default function Application(props) {
    
   }, [])
 
-  const appointmentsList = dailyAppointments.map(appointment => {
+  const appointments = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
     return (
       <Appointment 
@@ -39,6 +70,8 @@ export default function Application(props) {
       id={appointment.id}
       time={appointment.time}
       interview={interview}
+      interviews={dailyInterviews}
+      bookInterview={(id, interview) => bookInterview(id, interview)}
        />
     )
   }) 
@@ -65,7 +98,7 @@ export default function Application(props) {
     />
       </section>
       <section className="schedule">
-      {appointmentsList}
+      {appointments}
       </section>
     </main>
   );

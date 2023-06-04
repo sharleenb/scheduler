@@ -17,6 +17,26 @@ const [state, setState] = useState({
 
 const setDay = day => setState({...state, day})
 
+function updateSpots(appointments) {
+  const findDay = state.days.find((element) => element.name === state.day)
+  let spotsLeft = 0
+  for (const appt of findDay.appointments) {
+   if (appointments[appt].interview == null) {
+      spotsLeft += 1
+   }
+  }
+  const actualDay = {...findDay, spots: spotsLeft}
+
+  return state.days.map((day) => {
+    if(state.day === day.name) {
+      return actualDay
+    } else {
+      return day
+    }
+  })
+
+}
+
 function bookInterview(id, interview) {
   
   const appointment = {
@@ -29,12 +49,14 @@ function bookInterview(id, interview) {
     [id]: appointment
   };
   
-  
+  console.log(updateSpots(appointments));
   return axios.put(`api/appointments/${id}`, {interview})
   .then(() => {
+    console.log(state.days);
     setState({
       ...state, 
-      appointments
+      appointments, 
+      days: updateSpots(appointments)
     })
     
   })
@@ -56,7 +78,8 @@ function cancelInterview(id) {
   .then(() => {
     setState({
       ...state, 
-      appointments
+      appointments, 
+      days: updateSpots(appointments)
     })
   })
 }

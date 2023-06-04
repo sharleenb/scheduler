@@ -52,16 +52,19 @@ storiesOf("Button", module)
     {
       id: 1,
       name: "Monday",
+      appointments: [1, 2, 3, 4, 5],
       spots: 2,
     },
     {
       id: 2,
       name: "Tuesday",
+      appointments: [1, 2, 3, 4, 5],
       spots: 5,
     },
     {
       id: 3,
       name: "Wednesday",
+      appointments: [1, 2, 3, 4, 5],
       spots: 0,
     },
   ];

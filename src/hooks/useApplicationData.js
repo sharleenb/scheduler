@@ -49,10 +49,10 @@ function bookInterview(id, interview) {
     [id]: appointment
   };
   
-  console.log(updateSpots(appointments));
+
   return axios.put(`api/appointments/${id}`, {interview})
   .then(() => {
-    console.log(state.days);
+
     setState({
       ...state, 
       appointments, 

@@ -61,7 +61,6 @@ export default function Appointment(props) {
       onEdit={() => transition(EDIT)}
       />
       )}
-x
       {mode === CONFIRM && <Confirm  
       message="Are you sure you want to delete?" 
       onCancel={() => transition(SHOW)} onDelete={deleteAppt}/>}

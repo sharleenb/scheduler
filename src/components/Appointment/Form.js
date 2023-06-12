@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
-
-
 
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
 
-  const reset = function() {
-    setStudent("")
-    setInterviewer(null)
-    setError("")
-  }
+  const reset = function () {
+    setStudent("");
+    setInterviewer(null);
+    setError("");
+  };
 
-  const cancel = function() {
-    reset()
-    props.onCancel()
-  }
+  const cancel = function () {
+    reset();
+    props.onCancel();
+  };
 
   function validate() {
     if (student === "") {
@@ -29,8 +27,8 @@ export default function Form(props) {
       setError("Please select an interviewer");
       return;
     }
-  
-    setError("")
+
+    setError("");
     props.onSave(student, interviewer);
   }
 
@@ -39,13 +37,13 @@ export default function Form(props) {
     { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
     { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
     { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
-    { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
+    { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" },
   ];
-  
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+        <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
@@ -58,20 +56,22 @@ export default function Form(props) {
         </form>
         <section className="appointment__validation">{error}</section>
 
-        <InterviewerList 
+        <InterviewerList
           interviewers={interviewers}
           value={interviewer}
           onChange={setInterviewer}
-          
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={() => cancel()}>Cancel</Button>
-          <Button confirm onClick={() => validate()}>Save</Button>
-   
+          <Button danger onClick={() => cancel()}>
+            Cancel
+          </Button>
+          <Button confirm onClick={() => validate()}>
+            Save
+          </Button>
         </section>
       </section>
     </main>
-  )
+  );
 }

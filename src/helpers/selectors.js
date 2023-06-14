@@ -6,7 +6,7 @@ export function getAppointmentsForDay(state, day) {
   } else {
     for (const index of filteredDays[0].appointments) {
       for (const appointment in state.appointments) {
-        if (appointment == index) {
+        if (Number(appointment) === index) {
           resultArray.push(state.appointments[appointment]);
         }
       }
@@ -33,13 +33,12 @@ export function getInterviewersForDay(state, day) {
     return resultArray;
   }
   const filteredDays = state.days.filter((days) => days.name === day);
-
   if (!filteredDays[0]) {
     return resultArray;
   } else {
     for (const index of filteredDays[0].interviewers) {
       for (const interviewer in state.interviewers) {
-        if (interviewer == index) {
+        if (Number(interviewer) === index) {
           resultArray.push(state.interviewers[interviewer]);
         }
       }

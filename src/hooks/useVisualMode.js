@@ -9,15 +9,15 @@ function useVisualMode(initial) {
       setMode(mode);
     } else {
       setMode(mode);
-      history.push(mode);
-      setHistory(history);
+      setHistory(prev => [...prev, mode])
+
     }
   }
 
   function back() {
     if (history.length > 1) {
-      history.pop();
-      const prevMode = history[history.length - 1];
+      setHistory((prev) => [...prev.slice(0, -1)])
+      const prevMode = history[history.length - 2];
       setMode(prevMode);
     } else {
       setMode(initial);

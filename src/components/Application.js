@@ -14,7 +14,7 @@ export default function Application(props) {
     useApplicationData();
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  const dailyInterviews = getInterviewersForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);
 
   const appointments = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
@@ -24,7 +24,7 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
-        interviews={dailyInterviews}
+        interviewers={interviewers}
         bookInterview={bookInterview}
         cancelInterview={cancelInterview}
       />
@@ -49,7 +49,10 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />
       </section>
-      <section className="schedule">{appointments}</section>
+      <section className="schedule">
+        {appointments}
+        <Appointment id="last" time="5pm" />
+      </section>
     </main>
   );
 }

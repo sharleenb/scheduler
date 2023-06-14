@@ -4,6 +4,7 @@ import InterviewerListItem from "./InterviewerListItem";
 import PropTypes from "prop-types";
 
 function InterviewerList(props) {
+  console.log(props);
   const interviewers = props.interviewers.map((interviewer) => {
     return (
       <InterviewerListItem
@@ -15,6 +16,7 @@ function InterviewerList(props) {
         setInterviewer={() => props.onChange(interviewer.id)}
       />
     );
+    
   });
 
   return (
@@ -23,6 +25,7 @@ function InterviewerList(props) {
       <ul className="interviewers__list">{interviewers}</ul>
     </section>
   );
+
 }
 
 InterviewerList.propTypes = {
@@ -30,3 +33,14 @@ InterviewerList.propTypes = {
 };
 
 export default InterviewerList;
+
+//{props.interviewers.map((interviewer) => (
+//   <InterviewerListItem
+//   key={interviewer.id}
+//   id={interviewer.id}
+//   name={interviewer.name}
+//   avatar={interviewer.avatar}
+//   selected={interviewer.id === props.value}
+//   setInterviewer={() => props.onChange(interviewer.id)}
+// />
+// ))}
